@@ -1,103 +1,130 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#102b27"><meta name="description" content="Trail Talk Strength Coach — ランナーのための補強メニューと実施ログ">
-<title>Trail Talk | Strength Coach</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102c27"><meta name="description" content="走るための身体づくり。スタートすると補強の回数・テンポ・休憩を自動ガイド。">
+<title>Trail Talk Strength Coach | 実行支援タイマー</title>
 <style>
-:root{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#17312c;background:#f4f7f3;line-height:1.55}
-*{box-sizing:border-box}body{margin:0}button,input,textarea,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #8ebfa8;outline-offset:3px}
-header{background:#102b27;color:#fff;padding:24px 18px 30px}header .inner,main,footer{max-width:850px;margin:auto}h1{font-size:clamp(1.65rem,5vw,2.3rem);line-height:1.2;margin:7px 0 9px;letter-spacing:-.035em}h2{font-size:1.25rem;margin:0 0 12px}h3{font-size:1.05rem;margin:0 0 7px}.eyebrow{font-size:.75rem;letter-spacing:.19em;color:#b5dbc7;font-weight:700}.intro{color:#d4e4dd;margin:0;font-size:.91rem}.nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.nav button{border:1px solid #55746a;color:white;background:transparent;padding:9px 14px;border-radius:999px}.nav button.active{background:#dbeddc;color:#153b30;border-color:#dbeddc;font-weight:700}
-main{padding:22px 14px 60px}.card{background:#fff;border:1px solid #d9e3dc;border-radius:17px;padding:19px;margin-bottom:15px;box-shadow:0 4px 20px #1436280b}.muted{color:#5b6d64;font-size:.87rem}.tag{display:inline-flex;background:#e7f2e9;border-radius:999px;padding:4px 10px;font-weight:700;color:#28654a;font-size:.77rem}.tag.gray{background:#eff1ee;color:#55675e}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}.hero-stat{font-size:2rem;line-height:1.2;font-weight:800;margin:7px 0}.btn{background:#176a4b;color:white;border:0;border-radius:11px;padding:11px 16px;font-weight:700}.btn.secondary{background:#e7f1e9;color:#14563d}.btn.outline{background:white;border:1px solid #b0c5b9;color:#16543e}.btn.danger{background:#fff0ef;color:#943b35}.btn:disabled{opacity:.5;cursor:not-allowed}
-.steps{display:grid;gap:11px;margin-top:14px}.exercise{border:1px solid #d9e4dd;border-radius:13px;padding:14px}.exercise.checked{background:#f1f8f1;border-color:#8cb89a}.exercise label{display:flex;gap:12px;align-items:flex-start;cursor:pointer}.exercise input[type=checkbox]{accent-color:#176a4b;width:22px;height:22px;flex-shrink:0;margin-top:2px}.exercise .details{margin:7px 0 0 34px;font-size:.89rem}.notice{background:#f4f7ee;border-left:3px solid #6c916b;padding:10px 12px;border-radius:7px;font-size:.88rem}.warning{background:#fff5e5;border-left-color:#c28b28}.progress{height:9px;background:#e5ece6;border-radius:99px;overflow:hidden;margin:10px 0}.progress>div{height:100%;background:#18734f;transition:width .2s}.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field{display:block;font-weight:700;font-size:.9rem;margin:14px 0 6px}.field input,.field textarea,.field select{display:block;width:100%;padding:10px;border-radius:9px;border:1px solid #bfcfc5;background:white;color:#17312c;margin-top:5px;font-weight:400}.field textarea{min-height:80px;resize:vertical}.small{font-size:.8rem}.hidden{display:none!important}.log{border-top:1px solid #e5ece7;padding:14px 0}.log:first-child{border-top:0}.log p{margin:5px 0}.empty{padding:26px;text-align:center;color:#64766d}.footer{font-size:.78rem;color:#6f7e75;margin-top:14px}a{color:#14694d}.pill{display:inline-block;border:1px solid #bdd1c3;padding:4px 8px;border-radius:8px;font-size:.8rem}
-@media(max-width:560px){.two{grid-template-columns:1fr}.card{padding:16px}.hero-stat{font-size:1.7rem}}
+:root{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#12342b;background:#f5f7f3;font-size:16px}*{box-sizing:border-box}body{margin:0}button,select{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible{outline:3px solid #8abca1;outline-offset:3px}header{background:#102d27;color:#effaf3;padding:25px 18px 23px}header>div,main,footer{max-width:720px;margin:auto}.kicker{letter-spacing:.15em;font-size:.73rem;color:#a9dac2;font-weight:700}h1{margin:8px 0;font-size:clamp(1.55rem,6vw,2.35rem);line-height:1.17}.subtitle{color:#d1e7d8;font-size:.93rem;margin:0}main{padding:18px 14px 30px}.panel{background:#fff;border:1px solid #dbe4da;border-radius:20px;padding:18px;margin-bottom:14px;box-shadow:0 6px 24px #09281a0b}.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.between{justify-content:space-between}.muted{color:#65756d;font-size:.88rem}.small{font-size:.81rem}.pill{display:inline-block;border-radius:99px;background:#e4f1e7;padding:5px 11px;color:#1b6645;font-weight:700;font-size:.8rem}.pill.rest{background:#fdf0d5;color:#835a13}.pill.done{background:#d5f0de;color:#136039}h2{font-size:1.17rem;margin:0 0 12px}h3{font-size:1rem;margin:12px 0 6px}.chooser{display:flex;gap:8px;margin:14px 0}.chooser button{flex:1;padding:13px 6px;border:1px solid #afc7b7;background:#f6faf7;border-radius:12px;color:#1f5741;font-weight:700}.chooser button.selected{color:#fff;background:#186845;border-color:#186845}.countdown{text-align:center;padding:14px 4px 18px}.phase{font-size:1.35rem;font-weight:800;min-height:2em;margin:4px 0}.cue{min-height:3em;max-width:520px;margin:9px auto;color:#476457;font-size:.94rem}.clock{font-size:clamp(5rem,20vw,8.4rem);line-height:1;letter-spacing:-.075em;font-variant-numeric:tabular-nums;font-weight:800;margin:12px 0;color:#143a2d}.rep{font-weight:750;font-size:1.23rem;margin:9px 0}.sub{font-size:.92rem;color:#557363}.track{height:11px;border-radius:999px;background:#e0ece2;overflow:hidden;margin:15px 0 5px}.fill{height:100%;width:0;background:#219267;transition:width .2s}.buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.btn{border:0;border-radius:13px;font-weight:750;padding:15px 10px;background:#e5efe8;color:#1c553b;min-height:52px}.btn.primary{background:#126b47;color:#fff}.btn.dark{background:#143a2d;color:#fff}.btn:disabled{opacity:.45;cursor:not-allowed}.opts{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:13px 0}.switch{display:flex;align-items:center;gap:7px;font-size:.91rem;cursor:pointer}.switch input{height:19px;width:19px;accent-color:#16764d}.plan{list-style:none;margin:0;padding:0}.plan li{border-top:1px solid #e3eae3;padding:12px 0}.plan li:first-child{border-top:0}.plan strong{display:block;margin-bottom:3px}.notice{border-left:4px solid #b99c57;background:#fff8ea;padding:12px;border-radius:7px;font-size:.86rem;line-height:1.7}.status{text-align:center;min-height:1.5em;color:#466b58;font-size:.87rem}footer{font-size:.76rem;color:#667970;padding:0 16px 28px}select{border:1px solid #afc7b7;border-radius:9px;padding:8px;color:#153f30;background:#fff}button:active{transform:translateY(1px)}
+@media(min-width:550px){.buttons{grid-template-columns:2fr 1fr 1fr 1fr}.clock{margin:15px 0}}
 </style>
 </head>
 <body>
-<header><div class="inner"><div class="eyebrow">TRAIL TALK JP / STRENGTH</div><h1>Strength Coach</h1><p class="intro">走るための身体を、地道に強くする。<br>西尾先生の3種目を軸に、動作の質と継続を記録。</p>
-<nav class="nav" aria-label="メインナビゲーション"><button class="active" type="button" data-tab="today">今日の補強</button><button type="button" data-tab="history">実施履歴</button><button type="button" data-tab="guide">メニュー・使い方</button></nav></div></header>
+<header><div><div class="kicker">TRAIL TALK JP / LIVE COACH</div><h1>Strength Coach</h1><p class="subtitle">スタートを押したら、あとはカウントに合わせて動くだけ。</p></div></header>
 <main>
-<section id="today">
-<div class="card"><div class="row between"><div><span class="tag" id="weekday-label">本日の候補</span><h2 style="margin:8px 0 2px">補強ワークアウト</h2><p class="muted" style="margin:0">標準：月曜①／金曜② 各15〜20分</p></div><div><div class="muted">本日の進捗</div><div class="hero-stat" id="progress-count">0 / 3</div></div></div><div class="progress" role="progressbar" aria-label="種目の完了率" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" id="progressbar"><div id="progress-inner" style="width:0%"></div></div><p class="muted" style="margin:0">月曜はランOFF＋低負荷補強。金曜はER＋流しの後に補強。実際の疲労に合わせて変更可能です。</p></div>
-<div class="card">
-<div class="row between"><h2>実施する3種目</h2><span class="pill">フォーム優先・限界まで追い込まない</span></div>
-<div id="exercise-list" class="steps"></div><p class="notice warning">痛み、股関節前面の詰まり、かばう動作、ふらつきが増える場合は、その種目を中止・軽減。特に日曜ロング翌日の月曜は筋肉痛が残るほど負荷を上げません。</p>
+<section class="panel">
+<div class="row between"><strong>今日の補強</strong><span class="pill" id="day-indicator">ランOFFの日にも対応</span></div>
+<div class="chooser" role="group" aria-label="補強メニュー"><button id="session-a" type="button" class="selected">補強①（月曜）</button><button id="session-b" type="button">補強②（金曜）</button></div>
+<p class="muted" style="margin:4px 0">現時点の両メニューは、西尾先生の3種目を共通して実施します。回数・テンポはTrail Talk JPの暫定目安です。</p>
+<div class="opts"><label class="switch"><input id="voice" type="checkbox" checked>音声ガイド</label><label class="switch"><input id="beep" type="checkbox" checked>カウント音</label><label class="switch">準備・休憩 <select id="rest-mode"><option value="normal">標準</option><option value="short">短め</option></select></label></div>
+</section>
+<section class="panel" aria-label="補強実行タイマー">
+<div class="row between"><span id="phase-badge" class="pill">準備OK</span><span id="stage-index" class="muted">3種目 / 各2セット</span></div>
+<div class="countdown" aria-live="off">
+<div class="phase" id="phase-name">スタートの準備ができました</div>
+<div class="clock" id="clock" role="timer" aria-label="残り時間">00:00</div>
+<div id="rep" class="rep">カウントダウン実行支援</div>
+<div id="cue" class="cue">種目・左右・回数を自動で案内します。各動作は無理のない範囲で行ってください。</div>
+<div class="sub" id="next">開始ボタンを押すと5秒の準備から始まります。</div>
+<div class="track"><div class="fill" id="fill"></div></div>
+<p class="muted small" id="total-progress">進捗 0%</p>
 </div>
-<div class="card">
-<h2>実施ログを保存</h2>
-<p class="muted">記録はこのブラウザ内にのみ保存します。公開GitHubや外部サーバーへ自動送信されません。</p>
-<div class="two"><label class="field">実施日<input id="log-date" type="date"></label><label class="field">セッション<select id="session"><option value="補強①">補強①（月曜標準）</option><option value="補強②">補強②（金曜標準）</option><option value="臨時補強">臨時補強</option></select></label></div>
-<div class="two"><label class="field">負荷感 RPE（0〜10）<input id="rpe" type="number" min="0" max="10" step=".5" placeholder="例：2.5"></label><label class="field">違和感（0〜10）<input id="pain" type="number" min="0" max="10" step=".5" placeholder="例：0"></label></div>
-<label class="field">メモ（フォーム・左右差・翌日への影響など）<textarea id="memo" maxlength="2000" placeholder="例：右ランジ後半で少しふらつく。痛みなし。"></textarea></label>
-<div class="row"><button class="btn" type="button" id="save">実施結果を保存</button><button class="btn secondary" type="button" id="reset">チェックをリセット</button></div><p class="muted" id="save-status" role="status" aria-live="polite"></p>
+<div class="buttons">
+<button id="start" class="btn primary">▶ スタート</button>
+<button id="pause" class="btn" disabled>一時停止</button>
+<button id="skip" class="btn" disabled>次へ進む</button>
+<button id="reset" class="btn">最初から</button>
 </div>
+<p class="status" id="status" role="status" aria-live="polite"></p>
 </section>
-<section id="history" class="hidden">
-<div class="card"><div class="row between"><h2>実施履歴</h2><span class="tag gray" id="log-total">0件</span></div><div id="history-list"><div class="empty">まだ記録がありません。</div></div></div>
-<div class="card"><h2>データの保管</h2><p class="muted">端末変更・ブラウザ削除で記録は失われるため、定期的にJSONを保存してください。JSONにはメモや違和感などの個人情報が含まれます。共有公開しないでください。</p><div class="row"><button class="btn secondary" id="export" type="button">JSONを書き出す</button><label class="btn outline" for="import-file" style="cursor:pointer">JSONを読み込む</label><input class="hidden" id="import-file" type="file" accept="application/json,.json"><button class="btn danger" id="delete-all" type="button">履歴を全削除</button></div><p id="import-status" class="muted" role="status"></p></div>
-</section>
-<section id="guide" class="hidden">
-<div class="card"><h2>このサイトの位置づけ</h2><p>ランニング本体の計画・レビューは非公開の <strong>Trail Talk JP</strong> を正本にします。このページは西尾治療院で指導された補強の実行支援です。医療診断や治療の代わりではありません。</p><p>掲載する回数・テンポは<strong>コーチが提案した初期目安</strong>であり、西尾先生が指定した厳密な処方ではありません。指導者から個別に指示がある場合はそちらを優先します。</p></div>
-<div class="card"><h2>週間の基本配置</h2><div class="two"><div><span class="tag">月曜</span><h3 style="margin-top:8px">ランOFF＋補強①</h3><p>週末ロングの疲労を見ながら、軽い運動制御の刺激を入れる。</p></div><div><span class="tag">金曜</span><h3 style="margin-top:8px">ER＋補強②</h3><p>日曜ロングの妨げになる強い筋疲労を残さない。</p></div></div><p class="notice">休養曜日・補強曜日は固定の義務ではありません。競技目標・出張・回復状態に応じて変更できます。負荷はフォームが崩れない範囲に。</p></div>
-<div class="card"><h2>データと公開範囲</h2><p>このWebサイトの<strong>コードは公開</strong>されていますが、記録データはブラウザ内の <code>localStorage</code> に保存されます。端末間同期はありません。公開GitHubには実施ログをコミットしないでください。</p><p>今後、Trail Talk JP の非公開正本に記録を統合する場合は、認証とプライバシーを設計した別の連携方式が必要です。</p></div>
-</section>
-<footer class="footer">Trail Talk JP • Strength Coach v0.1 — 個人用プロトタイプ / 公開されるのはアプリコードのみ</footer>
-</main>
+<section class="panel"><h2>自動ガイドする内容</h2><ol class="plan">
+<li><strong>① 母趾側荷重カーフレイズ</strong><span class="muted">右10回・左10回 × 2セット / 1回3秒 / セット間30秒</span><div class="small">親指側に荷重を残し、ゆっくり上下動。左右の順序は調整可能。</div></li>
+<li><strong>② 棒持ちフォワードランジ</strong><span class="muted">右5回・左5回 × 2セット / 1回5秒 / セット間30秒</span><div class="small">両腕を前に伸ばして棒を持つ。右脚の支持の安定性を優先。</div></li>
+<li><strong>③ 膝引き寄せクランチ</strong><span class="muted">8回 × 2セット / 1回4秒 / セット間30秒</span><div class="small">膝を引き寄せ、骨盤を後傾。勢いではなく制御して行う。</div></li>
+</ol><p class="notice"><strong>重要：</strong>これは反復回数・テンポを数えるガイドで、動作を無理に速めたり完遂を強制したりするものではありません。痛み・詰まり・かばう動作があれば一時停止または終了。月曜は日曜ロングの翌日なので軽い負荷に留めます。</p></section>
+<section class="panel"><h2>iPhoneでの使い方</h2><p>① 音声・カウント音を選択 → ② <strong>スタート</strong> → ③ 画面の「右／左」「セット」「回数」に合わせて実施。必要なら一時停止・次へ進むを使用。</p><p class="muted">画面を閉じたり別アプリへ切り替えると、iOSでは音声・タイマーの継続に制限があります。使用中は画面を開いてください。対応環境では画面スリープ抑制を試みます。実施記録は保存しません。</p></section>
+</main><footer>Trail Talk JP Strength Coach v0.2 • 実行支援専用 / 個人ログ収集なし</footer>
 <script>
 "use strict";
-const KEY="trail-talk-strength-coach:logs:v1";
-const EXERCISES=[
-{id:"calf",title:"母趾側荷重カーフレイズ",dosage:"左右各10回 × 2セット",tempo:"約3秒／回",cue:"親指側の荷重を保ち、足首の動きをゆっくり制御。"},
-{id:"lunge",title:"棒持ちフォワードランジ",dosage:"左右各5回 × 2セット",tempo:"約5秒／回",cue:"両腕を前方に伸ばして棒を保持。右側のふらつきや股関節の詰まりが出たら可動域を下げる。"},
-{id:"crunch",title:"膝引き寄せクランチ",dosage:"8回 × 2セット",tempo:"約4秒／回",cue:"膝を引き寄せ、骨盤の後傾を意識。勢いで反復しない。"}
-];
 const $=id=>document.getElementById(id);
-let checks=Object.fromEntries(EXERCISES.map(e=>[e.id,false]));
-let logs=load();
-function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(x)?x:[]}catch{return []}}
-function persist(){try{localStorage.setItem(KEY,JSON.stringify(logs));return true}catch{$("save-status").textContent="保存に失敗しました。ブラウザの保存領域を確認してください。";return false}}
-function safe(t){return String(t??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]))}
-function renderExercises(){
-$("exercise-list").innerHTML=EXERCISES.map(e=>'<div class="exercise '+(checks[e.id]?'checked':'')+'"><label><input type="checkbox" data-id="'+e.id+'" '+(checks[e.id]?'checked':'')+'><span><strong>'+safe(e.title)+'</strong><br><span class="muted">'+safe(e.dosage)+' ・ '+safe(e.tempo)+'</span></span></label><p class="details">'+safe(e.cue)+'</p></div>').join("");
-document.querySelectorAll("#exercise-list input").forEach(x=>x.addEventListener("change",()=>{checks[x.dataset.id]=x.checked;renderExercises()}));
-const n=Object.values(checks).filter(Boolean).length;
-$("progress-count").textContent=n+" / 3";$("progressbar").setAttribute("aria-valuenow",String(n));$("progress-inner").style.width=100*n/3+"%";
+const exercises=[
+{name:"母趾側荷重カーフレイズ",side:["右脚","左脚"],reps:10,sets:2,tempo:3,cue:"親指側へ荷重。急がずゆっくり上下します。"},
+{name:"棒持ちフォワードランジ",side:["右脚","左脚"],reps:5,sets:2,tempo:5,cue:"両腕を伸ばして棒を持ち、右脚のふらつきに注意。"},
+{name:"膝引き寄せクランチ",side:["両脚"],reps:8,sets:2,tempo:4,cue:"膝を引き寄せ、骨盤を後傾。勢いで反復しません。"}
+];
+let steps=[],index=0,remain=0,status="idle",timer=null,target=0,selected="補強①",audio=null,lock=null,lastTick=-1;
+function mmss(n){n=Math.max(0,Math.ceil(n));return String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0")}
+function build(){
+const short=$("rest-mode").value==="short",rest=short?15:30,between=short?15:25;let a=[{kind:"prep",name:"スタート準備",duration:5,tip:"姿勢を整えます。開始まで5秒。"}];
+exercises.forEach((e,ei)=>{for(let set=1;set<=e.sets;set++){e.side.forEach((side,si)=>{a.push({kind:"work",duration:e.reps*e.tempo,name:e.name,side,set,sets:e.sets,reps:e.reps,tempo:e.tempo,tip:e.cue,ei});if(si<e.side.length-1)a.push({kind:"transition",duration:5,name:"左右の切替",tip:"次は"+e.side[si+1]});});
+if(set<e.sets)a.push({kind:"rest",duration:rest,name:"セット間の休憩",tip:"無理せず呼吸を整えましょう。"});}
+if(ei<exercises.length-1)a.push({kind:"rest",duration:between,name:"次の種目まで休憩",tip:"次の動作の準備をしましょう。"});});
+a.push({kind:"finish",name:"おつかれさまでした！",duration:0,tip:"補強は完了です。筋疲労や違和感が残る場合は回復を優先してください。"});return a;
 }
-function renderHistory(){
-$("log-total").textContent=logs.length+"件";
-$("history-list").innerHTML=logs.length?logs.slice().sort((a,b)=>b.date.localeCompare(a.date)||b.created.localeCompare(a.created)).map(x=>'<article class="log"><div class="row between"><strong>'+safe(x.date)+' ・ '+safe(x.session)+'</strong><span class="tag gray">'+x.completed.length+'/3種目</span></div><p class="muted">完了：'+safe(x.completed.map(id=>EXERCISES.find(e=>e.id===id)?.title||id).join("、")||"なし")+'</p><p class="muted">RPE '+safe(x.rpe??"未入力")+' / 違和感 '+safe(x.pain??"未入力")+'</p>'+(x.memo?'<p>'+safe(x.memo)+'</p>':'')+'<button class="btn outline small" type="button" data-remove="'+safe(x.id)+'">この記録を削除</button></article>').join(""):'<div class="empty">まだ記録がありません。</div>';
-document.querySelectorAll("[data-remove]").forEach(el=>el.addEventListener("click",()=>{if(confirm("この記録を削除しますか？")){logs=logs.filter(x=>x.id!==el.dataset.remove);persist();renderHistory()}}));
+function initAudio(){try{if(!audio){const AC=window.AudioContext||window.webkitAudioContext;if(AC)audio=new AC()}if(audio?.state==="suspended")audio.resume()}catch{}}
+function tone(hz=720,dur=.08){if(!$("beep").checked||!audio)return;try{const osc=audio.createOscillator(),gain=audio.createGain();osc.type="sine";osc.frequency.value=hz;gain.gain.setValueAtTime(.0001,audio.currentTime);gain.gain.exponentialRampToValueAtTime(.08,audio.currentTime+.01);gain.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+dur);osc.connect(gain);gain.connect(audio.destination);osc.start();osc.stop(audio.currentTime+dur+.02)}catch{}}
+function speak(words){if(!$("voice").checked||!("speechSynthesis"in window))return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(words);u.lang="ja-JP";u.rate=1.15;speechSynthesis.speak(u)}catch{}}
+async function wake(){if("wakeLock"in navigator){try{lock=await navigator.wakeLock.request("screen")}catch{}}}
+function unwake(){try{lock?.release()}catch{}lock=null}
+function announce(){
+let s=steps[index];if(!s)return;
+if(s.kind==="work")speak(s.name+"、"+s.side+"、"+s.set+"セット目、"+s.reps+"回");else if(s.kind==="finish")speak("すべて完了です。おつかれさまでした");else if(s.kind==="prep")speak("5秒後にスタートします");else if(s.kind==="rest")speak("休憩です");else if(s.kind==="transition")speak(s.tip);
+tone(s.kind==="finish"?930:660,.12)
 }
-function dateLocal(){const d=new Date(),y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");return y+"-"+m+"-"+day}
-function initDay(){
-$("log-date").value=dateLocal();const day=new Date().getDay();
-$("weekday-label").textContent=day===1?"月曜：ランOFF＋補強①":day===5?"金曜：補強②":"任意日：コンディションを優先";
-$("session").value=day===5?"補強②":day===1?"補強①":"臨時補強";
+function controls(){
+$("start").disabled=status==="running"||status==="done";$("start").textContent=status==="paused"?"▶ 再開":"▶ スタート";
+$("pause").disabled=status!=="running";$("skip").disabled=status!=="running"&&status!=="paused";
+$("session-a").disabled=status==="running"||status==="paused";$("session-b").disabled=status==="running"||status==="paused";$("rest-mode").disabled=status==="running"||status==="paused";
 }
-document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{const tab=b.dataset.tab;document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x===b));for(const id of ["today","history","guide"])$(id).classList.toggle("hidden",id!==tab);if(tab==="history")renderHistory()}));
-$("save").addEventListener("click",()=>{
-const date=$("log-date").value;if(!/^\d{4}-\d{2}-\d{2}$/.test(date)){$("save-status").textContent="日付を選んでください。";return}
-const parse=(id)=>$(id).value.trim()===""?null:Number($(id).value);
-const rpe=parse("rpe"),pain=parse("pain");
-if([rpe,pain].some(n=>n!==null&&(!Number.isFinite(n)||n<0||n>10))){$("save-status").textContent="RPE・違和感は0〜10で入力してください。";return}
-const entry={id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random()),created:new Date().toISOString(),date,session:$("session").value,completed:Object.keys(checks).filter(k=>checks[k]),rpe,pain,memo:$("memo").value.trim().slice(0,2000)};
-logs.push(entry);
-if(persist()){$("save-status").textContent="保存しました。履歴タブで確認できます。";checks=Object.fromEntries(EXERCISES.map(e=>[e.id,false]));renderExercises();$("memo").value="";$("rpe").value="";$("pain").value="";}
+function render(){
+const s=steps[index];if(!s)return;
+const full=steps.reduce((t,x)=>t+x.duration,0);
+const passed=steps.slice(0,index).reduce((t,x)=>t+x.duration,0)+Math.max(0,s.duration-remain);
+const progress=full?Math.min(100,passed/full*100):0;
+$("fill").style.width=progress+"%";$("total-progress").textContent="進捗 "+Math.floor(progress)+"%";
+$("phase-badge").textContent=s.kind==="work"?"動作中":s.kind==="rest"?"休憩":s.kind==="finish"?"完了":s.kind==="transition"?"左右切替":"準備";
+$("phase-badge").className="pill"+(s.kind==="rest"?" rest":s.kind==="finish"?" done":"");
+$("phase-name").textContent=s.name;$("clock").textContent=mmss(remain);$("cue").textContent=s.tip;
+if(s.kind==="work"){
+const current=Math.min(s.reps,Math.floor((s.duration-Math.max(0,remain))/s.tempo)+1);
+$("rep").textContent=s.side+" ・ "+s.set+"/"+s.sets+"セット ・ "+current+"/"+s.reps+"回";
+$("stage-index").textContent="種目 "+(s.ei+1)+"/3";
+}else {$("rep").textContent=s.kind==="finish"?"全種目終了":"次の動作に備えましょう";$("stage-index").textContent=selected;}
+const next=steps[index+1];$("next").textContent=next?"次： "+next.name+(next.side?"／"+next.side+"・"+next.set+"セット":""):"最後まで完了";
+controls();
+}
+function move(){
+if(index<steps.length-1){index++;remain=steps[index].duration;lastTick=-1;announce();if(steps[index].kind==="finish"){status="done";clearInterval(timer);timer=null;unwake();$("status").textContent="完了！ 記録保存は行いません。";}render();}
+}
+function advance(elapsed){
+let left=elapsed,guard=0;
+while(left>0&&status==="running"&&guard++<1000){
+ if(left<remain){remain-=left;left=0}else{left-=remain;remain=0;move();}
+}
+}
+function frame(){
+if(status!=="running")return;const now=performance.now(),elapsed=(now-target)/1000;
+if(elapsed<=0)return;target=now;const oldStep=steps[index],oldRemain=remain;advance(elapsed);
+const s=steps[index];if(s===oldStep&&s?.kind==="work"&&s.tempo>0){const oldR=Math.floor((s.duration-oldRemain)/s.tempo),newR=Math.floor((s.duration-remain)/s.tempo);if(newR>oldR)tone(820,.06);}
+render();
+}
+function stopTimer(){if(timer)clearInterval(timer);timer=null;unwake();try{speechSynthesis.cancel()}catch{}}
+function setInitial(){stopTimer();steps=build();index=0;remain=0;status="idle";$("status").textContent="スタートで自動カウントを開始します。";render();}
+$("start").addEventListener("click",()=>{
+if(status==="done"||status==="running")return;initAudio();
+if(status==="idle"){steps=build();index=0;remain=steps[0].duration;announce();}
+status="running";target=performance.now();timer=setInterval(frame,70);wake();$("status").textContent="実行中。音声を聞きながら画面を見てください。";render();
 });
-$("reset").addEventListener("click",()=>{checks=Object.fromEntries(EXERCISES.map(e=>[e.id,false]));renderExercises();$("save-status").textContent="チェックをリセットしました。"});
-$("export").addEventListener("click",()=>{
-const blob=new Blob([JSON.stringify({format:"trail-talk-strength-coach",version:1,exported:new Date().toISOString(),logs},null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="strength-coach-"+dateLocal()+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)
+$("pause").addEventListener("click",()=>{
+if(status!=="running")return;frame();stopTimer();status="paused";$("status").textContent="一時停止しました。再開できます。";render();
 });
-$("import-file").addEventListener("change",async e=>{
-const file=e.target.files[0];if(!file)return;const status=$("import-status");try{
-if(file.size>3_000_000)throw Error("ファイルが大きすぎます");
-const x=JSON.parse(await file.text());if(x.format!=="trail-talk-strength-coach"||x.version!==1||!Array.isArray(x.logs)||x.logs.length>10000)throw Error("このアプリのJSON形式ではありません");
-const valid=x.logs.every(l=>l&&typeof l.id==="string"&&typeof l.date==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(l.date)&&typeof l.session==="string"&&typeof l.created==="string"&&Array.isArray(l.completed)&&l.completed.every(id=>EXERCISES.some(e=>e.id===id))&&(l.rpe==null||typeof l.rpe==="number"&&l.rpe>=0&&l.rpe<=10)&&(l.pain==null||typeof l.pain==="number"&&l.pain>=0&&l.pain<=10)&&typeof l.memo==="string"&&l.memo.length<=2000);if(!valid)throw Error("記録の形式が不正です");
-if(!confirm("現在の履歴と統合しますか？ 同じIDの記録は重複しません。"))return;
-const byId=new Map(logs.map(l=>[l.id,l]));for(const l of x.logs)if(!byId.has(l.id))byId.set(l.id,l);logs=[...byId.values()];if(persist()){renderHistory();status.textContent="読み込みが完了しました（計"+logs.length+"件）。"}
-}catch(err){status.textContent="読み込み失敗："+err.message}finally{e.target.value=""}
-});
-$("delete-all").addEventListener("click",()=>{if(confirm("全履歴をこの端末から削除します。元に戻せません。実行しますか？")){logs=[];persist();renderHistory()}});
-initDay();renderExercises();
+$("skip").addEventListener("click",()=>{if(status!=="running"&&status!=="paused")return;move();if(status==="running")target=performance.now();render()});
+$("reset").addEventListener("click",()=>{setInitial()});
+function selectSession(which){if(status==="running"||status==="paused")return;selected=which;$("session-a").classList.toggle("selected",which==="補強①");$("session-b").classList.toggle("selected",which==="補強②");setInitial();}
+$("session-a").addEventListener("click",()=>selectSession("補強①"));$("session-b").addEventListener("click",()=>selectSession("補強②"));
+$("rest-mode").addEventListener("change",setInitial);
+const weekday=new Date().getDay();$("day-indicator").textContent=weekday===1?"月曜：ランOFF＋補強":weekday===5?"金曜：補強②":"フォーム優先・無理なく";
+if(weekday===5)selectSession("補強②");else setInitial();
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&status==="running"){$("status").textContent="画面が非表示です。音やスリープ抑制はiOSで制限される場合があります。"}});
 </script>
 </body></html>
