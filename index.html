@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#102b27"><meta name="description" content="Trail Talk Strength Coach — ランナーのための補強メニューと実施ログ">
+<title>Trail Talk | Strength Coach</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#17312c;background:#f4f7f3;line-height:1.55}
+*{box-sizing:border-box}body{margin:0}button,input,textarea,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #8ebfa8;outline-offset:3px}
+header{background:#102b27;color:#fff;padding:24px 18px 30px}header .inner,main,footer{max-width:850px;margin:auto}h1{font-size:clamp(1.65rem,5vw,2.3rem);line-height:1.2;margin:7px 0 9px;letter-spacing:-.035em}h2{font-size:1.25rem;margin:0 0 12px}h3{font-size:1.05rem;margin:0 0 7px}.eyebrow{font-size:.75rem;letter-spacing:.19em;color:#b5dbc7;font-weight:700}.intro{color:#d4e4dd;margin:0;font-size:.91rem}.nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.nav button{border:1px solid #55746a;color:white;background:transparent;padding:9px 14px;border-radius:999px}.nav button.active{background:#dbeddc;color:#153b30;border-color:#dbeddc;font-weight:700}
+main{padding:22px 14px 60px}.card{background:#fff;border:1px solid #d9e3dc;border-radius:17px;padding:19px;margin-bottom:15px;box-shadow:0 4px 20px #1436280b}.muted{color:#5b6d64;font-size:.87rem}.tag{display:inline-flex;background:#e7f2e9;border-radius:999px;padding:4px 10px;font-weight:700;color:#28654a;font-size:.77rem}.tag.gray{background:#eff1ee;color:#55675e}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}.hero-stat{font-size:2rem;line-height:1.2;font-weight:800;margin:7px 0}.btn{background:#176a4b;color:white;border:0;border-radius:11px;padding:11px 16px;font-weight:700}.btn.secondary{background:#e7f1e9;color:#14563d}.btn.outline{background:white;border:1px solid #b0c5b9;color:#16543e}.btn.danger{background:#fff0ef;color:#943b35}.btn:disabled{opacity:.5;cursor:not-allowed}
+.steps{display:grid;gap:11px;margin-top:14px}.exercise{border:1px solid #d9e4dd;border-radius:13px;padding:14px}.exercise.checked{background:#f1f8f1;border-color:#8cb89a}.exercise label{display:flex;gap:12px;align-items:flex-start;cursor:pointer}.exercise input[type=checkbox]{accent-color:#176a4b;width:22px;height:22px;flex-shrink:0;margin-top:2px}.exercise .details{margin:7px 0 0 34px;font-size:.89rem}.notice{background:#f4f7ee;border-left:3px solid #6c916b;padding:10px 12px;border-radius:7px;font-size:.88rem}.warning{background:#fff5e5;border-left-color:#c28b28}.progress{height:9px;background:#e5ece6;border-radius:99px;overflow:hidden;margin:10px 0}.progress>div{height:100%;background:#18734f;transition:width .2s}.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field{display:block;font-weight:700;font-size:.9rem;margin:14px 0 6px}.field input,.field textarea,.field select{display:block;width:100%;padding:10px;border-radius:9px;border:1px solid #bfcfc5;background:white;color:#17312c;margin-top:5px;font-weight:400}.field textarea{min-height:80px;resize:vertical}.small{font-size:.8rem}.hidden{display:none!important}.log{border-top:1px solid #e5ece7;padding:14px 0}.log:first-child{border-top:0}.log p{margin:5px 0}.empty{padding:26px;text-align:center;color:#64766d}.footer{font-size:.78rem;color:#6f7e75;margin-top:14px}a{color:#14694d}.pill{display:inline-block;border:1px solid #bdd1c3;padding:4px 8px;border-radius:8px;font-size:.8rem}
+@media(max-width:560px){.two{grid-template-columns:1fr}.card{padding:16px}.hero-stat{font-size:1.7rem}}
+</style>
+</head>
+<body>
+<header><div class="inner"><div class="eyebrow">TRAIL TALK JP / STRENGTH</div><h1>Strength Coach</h1><p class="intro">走るための身体を、地道に強くする。<br>西尾先生の3種目を軸に、動作の質と継続を記録。</p>
+<nav class="nav" aria-label="メインナビゲーション"><button class="active" type="button" data-tab="today">今日の補強</button><button type="button" data-tab="history">実施履歴</button><button type="button" data-tab="guide">メニュー・使い方</button></nav></div></header>
+<main>
+<section id="today">
+<div class="card"><div class="row between"><div><span class="tag" id="weekday-label">本日の候補</span><h2 style="margin:8px 0 2px">補強ワークアウト</h2><p class="muted" style="margin:0">標準：月曜①／金曜② 各15〜20分</p></div><div><div class="muted">本日の進捗</div><div class="hero-stat" id="progress-count">0 / 3</div></div></div><div class="progress" role="progressbar" aria-label="種目の完了率" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" id="progressbar"><div id="progress-inner" style="width:0%"></div></div><p class="muted" style="margin:0">月曜はランOFF＋低負荷補強。金曜はER＋流しの後に補強。実際の疲労に合わせて変更可能です。</p></div>
+<div class="card">
+<div class="row between"><h2>実施する3種目</h2><span class="pill">フォーム優先・限界まで追い込まない</span></div>
+<div id="exercise-list" class="steps"></div><p class="notice warning">痛み、股関節前面の詰まり、かばう動作、ふらつきが増える場合は、その種目を中止・軽減。特に日曜ロング翌日の月曜は筋肉痛が残るほど負荷を上げません。</p>
+</div>
+<div class="card">
+<h2>実施ログを保存</h2>
+<p class="muted">記録はこのブラウザ内にのみ保存します。公開GitHubや外部サーバーへ自動送信されません。</p>
+<div class="two"><label class="field">実施日<input id="log-date" type="date"></label><label class="field">セッション<select id="session"><option value="補強①">補強①（月曜標準）</option><option value="補強②">補強②（金曜標準）</option><option value="臨時補強">臨時補強</option></select></label></div>
+<div class="two"><label class="field">負荷感 RPE（0〜10）<input id="rpe" type="number" min="0" max="10" step=".5" placeholder="例：2.5"></label><label class="field">違和感（0〜10）<input id="pain" type="number" min="0" max="10" step=".5" placeholder="例：0"></label></div>
+<label class="field">メモ（フォーム・左右差・翌日への影響など）<textarea id="memo" maxlength="2000" placeholder="例：右ランジ後半で少しふらつく。痛みなし。"></textarea></label>
+<div class="row"><button class="btn" type="button" id="save">実施結果を保存</button><button class="btn secondary" type="button" id="reset">チェックをリセット</button></div><p class="muted" id="save-status" role="status" aria-live="polite"></p>
+</div>
+</section>
+<section id="history" class="hidden">
+<div class="card"><div class="row between"><h2>実施履歴</h2><span class="tag gray" id="log-total">0件</span></div><div id="history-list"><div class="empty">まだ記録がありません。</div></div></div>
+<div class="card"><h2>データの保管</h2><p class="muted">端末変更・ブラウザ削除で記録は失われるため、定期的にJSONを保存してください。JSONにはメモや違和感などの個人情報が含まれます。共有公開しないでください。</p><div class="row"><button class="btn secondary" id="export" type="button">JSONを書き出す</button><label class="btn outline" for="import-file" style="cursor:pointer">JSONを読み込む</label><input class="hidden" id="import-file" type="file" accept="application/json,.json"><button class="btn danger" id="delete-all" type="button">履歴を全削除</button></div><p id="import-status" class="muted" role="status"></p></div>
+</section>
+<section id="guide" class="hidden">
+<div class="card"><h2>このサイトの位置づけ</h2><p>ランニング本体の計画・レビューは非公開の <strong>Trail Talk JP</strong> を正本にします。このページは西尾治療院で指導された補強の実行支援です。医療診断や治療の代わりではありません。</p><p>掲載する回数・テンポは<strong>コーチが提案した初期目安</strong>であり、西尾先生が指定した厳密な処方ではありません。指導者から個別に指示がある場合はそちらを優先します。</p></div>
+<div class="card"><h2>週間の基本配置</h2><div class="two"><div><span class="tag">月曜</span><h3 style="margin-top:8px">ランOFF＋補強①</h3><p>週末ロングの疲労を見ながら、軽い運動制御の刺激を入れる。</p></div><div><span class="tag">金曜</span><h3 style="margin-top:8px">ER＋補強②</h3><p>日曜ロングの妨げになる強い筋疲労を残さない。</p></div></div><p class="notice">休養曜日・補強曜日は固定の義務ではありません。競技目標・出張・回復状態に応じて変更できます。負荷はフォームが崩れない範囲に。</p></div>
+<div class="card"><h2>データと公開範囲</h2><p>このWebサイトの<strong>コードは公開</strong>されていますが、記録データはブラウザ内の <code>localStorage</code> に保存されます。端末間同期はありません。公開GitHubには実施ログをコミットしないでください。</p><p>今後、Trail Talk JP の非公開正本に記録を統合する場合は、認証とプライバシーを設計した別の連携方式が必要です。</p></div>
+</section>
+<footer class="footer">Trail Talk JP • Strength Coach v0.1 — 個人用プロトタイプ / 公開されるのはアプリコードのみ</footer>
+</main>
+<script>
+"use strict";
+const KEY="trail-talk-strength-coach:logs:v1";
+const EXERCISES=[
+{id:"calf",title:"母趾側荷重カーフレイズ",dosage:"左右各10回 × 2セット",tempo:"約3秒／回",cue:"親指側の荷重を保ち、足首の動きをゆっくり制御。"},
+{id:"lunge",title:"棒持ちフォワードランジ",dosage:"左右各5回 × 2セット",tempo:"約5秒／回",cue:"両腕を前方に伸ばして棒を保持。右側のふらつきや股関節の詰まりが出たら可動域を下げる。"},
+{id:"crunch",title:"膝引き寄せクランチ",dosage:"8回 × 2セット",tempo:"約4秒／回",cue:"膝を引き寄せ、骨盤の後傾を意識。勢いで反復しない。"}
+];
+const $=id=>document.getElementById(id);
+let checks=Object.fromEntries(EXERCISES.map(e=>[e.id,false]));
+let logs=load();
+function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(x)?x:[]}catch{return []}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(logs));return true}catch{$("save-status").textContent="保存に失敗しました。ブラウザの保存領域を確認してください。";return false}}
+function safe(t){return String(t??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]))}
+function renderExercises(){
+$("exercise-list").innerHTML=EXERCISES.map(e=>'<div class="exercise '+(checks[e.id]?'checked':'')+'"><label><input type="checkbox" data-id="'+e.id+'" '+(checks[e.id]?'checked':'')+'><span><strong>'+safe(e.title)+'</strong><br><span class="muted">'+safe(e.dosage)+' ・ '+safe(e.tempo)+'</span></span></label><p class="details">'+safe(e.cue)+'</p></div>').join("");
+document.querySelectorAll("#exercise-list input").forEach(x=>x.addEventListener("change",()=>{checks[x.dataset.id]=x.checked;renderExercises()}));
+const n=Object.values(checks).filter(Boolean).length;
+$("progress-count").textContent=n+" / 3";$("progressbar").setAttribute("aria-valuenow",String(n));$("progress-inner").style.width=100*n/3+"%";
+}
+function renderHistory(){
+$("log-total").textContent=logs.length+"件";
+$("history-list").innerHTML=logs.length?logs.slice().sort((a,b)=>b.date.localeCompare(a.date)||b.created.localeCompare(a.created)).map(x=>'<article class="log"><div class="row between"><strong>'+safe(x.date)+' ・ '+safe(x.session)+'</strong><span class="tag gray">'+x.completed.length+'/3種目</span></div><p class="muted">完了：'+safe(x.completed.map(id=>EXERCISES.find(e=>e.id===id)?.title||id).join("、")||"なし")+'</p><p class="muted">RPE '+safe(x.rpe??"未入力")+' / 違和感 '+safe(x.pain??"未入力")+'</p>'+(x.memo?'<p>'+safe(x.memo)+'</p>':'')+'<button class="btn outline small" type="button" data-remove="'+safe(x.id)+'">この記録を削除</button></article>').join(""):'<div class="empty">まだ記録がありません。</div>';
+document.querySelectorAll("[data-remove]").forEach(el=>el.addEventListener("click",()=>{if(confirm("この記録を削除しますか？")){logs=logs.filter(x=>x.id!==el.dataset.remove);persist();renderHistory()}}));
+}
+function dateLocal(){const d=new Date(),y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");return y+"-"+m+"-"+day}
+function initDay(){
+$("log-date").value=dateLocal();const day=new Date().getDay();
+$("weekday-label").textContent=day===1?"月曜：ランOFF＋補強①":day===5?"金曜：補強②":"任意日：コンディションを優先";
+$("session").value=day===5?"補強②":day===1?"補強①":"臨時補強";
+}
+document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{const tab=b.dataset.tab;document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x===b));for(const id of ["today","history","guide"])$(id).classList.toggle("hidden",id!==tab);if(tab==="history")renderHistory()}));
+$("save").addEventListener("click",()=>{
+const date=$("log-date").value;if(!/^\d{4}-\d{2}-\d{2}$/.test(date)){$("save-status").textContent="日付を選んでください。";return}
+const parse=(id)=>$(id).value.trim()===""?null:Number($(id).value);
+const rpe=parse("rpe"),pain=parse("pain");
+if([rpe,pain].some(n=>n!==null&&(!Number.isFinite(n)||n<0||n>10))){$("save-status").textContent="RPE・違和感は0〜10で入力してください。";return}
+const entry={id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random()),created:new Date().toISOString(),date,session:$("session").value,completed:Object.keys(checks).filter(k=>checks[k]),rpe,pain,memo:$("memo").value.trim().slice(0,2000)};
+logs.push(entry);
+if(persist()){$("save-status").textContent="保存しました。履歴タブで確認できます。";checks=Object.fromEntries(EXERCISES.map(e=>[e.id,false]));renderExercises();$("memo").value="";$("rpe").value="";$("pain").value="";}
+});
+$("reset").addEventListener("click",()=>{checks=Object.fromEntries(EXERCISES.map(e=>[e.id,false]));renderExercises();$("save-status").textContent="チェックをリセットしました。"});
+$("export").addEventListener("click",()=>{
+const blob=new Blob([JSON.stringify({format:"trail-talk-strength-coach",version:1,exported:new Date().toISOString(),logs},null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="strength-coach-"+dateLocal()+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)
+});
+$("import-file").addEventListener("change",async e=>{
+const file=e.target.files[0];if(!file)return;const status=$("import-status");try{
+if(file.size>3_000_000)throw Error("ファイルが大きすぎます");
+const x=JSON.parse(await file.text());if(x.format!=="trail-talk-strength-coach"||x.version!==1||!Array.isArray(x.logs)||x.logs.length>10000)throw Error("このアプリのJSON形式ではありません");
+const valid=x.logs.every(l=>l&&typeof l.id==="string"&&typeof l.date==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(l.date)&&typeof l.session==="string"&&typeof l.created==="string"&&Array.isArray(l.completed)&&l.completed.every(id=>EXERCISES.some(e=>e.id===id))&&(l.rpe==null||typeof l.rpe==="number"&&l.rpe>=0&&l.rpe<=10)&&(l.pain==null||typeof l.pain==="number"&&l.pain>=0&&l.pain<=10)&&typeof l.memo==="string"&&l.memo.length<=2000);if(!valid)throw Error("記録の形式が不正です");
+if(!confirm("現在の履歴と統合しますか？ 同じIDの記録は重複しません。"))return;
+const byId=new Map(logs.map(l=>[l.id,l]));for(const l of x.logs)if(!byId.has(l.id))byId.set(l.id,l);logs=[...byId.values()];if(persist()){renderHistory();status.textContent="読み込みが完了しました（計"+logs.length+"件）。"}
+}catch(err){status.textContent="読み込み失敗："+err.message}finally{e.target.value=""}
+});
+$("delete-all").addEventListener("click",()=>{if(confirm("全履歴をこの端末から削除します。元に戻せません。実行しますか？")){logs=[];persist();renderHistory()}});
+initDay();renderExercises();
+</script>
+</body></html>
