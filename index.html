@@ -1,130 +1,111 @@
 <!doctype html>
-<html lang="ja">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#102c27"><meta name="description" content="走るための身体づくり。スタートすると補強の回数・テンポ・休憩を自動ガイド。">
-<title>Trail Talk Strength Coach | 実行支援タイマー</title>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0a1520">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Strength Coach">
+<meta name="description" content="Trail Talk JPの3種目補強を自動カウントする専用タイマー">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png"><title>Trail Talk JP | Strength Coach 1.2</title>
 <style>
-:root{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#12342b;background:#f5f7f3;font-size:16px}*{box-sizing:border-box}body{margin:0}button,select{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible{outline:3px solid #8abca1;outline-offset:3px}header{background:#102d27;color:#effaf3;padding:25px 18px 23px}header>div,main,footer{max-width:720px;margin:auto}.kicker{letter-spacing:.15em;font-size:.73rem;color:#a9dac2;font-weight:700}h1{margin:8px 0;font-size:clamp(1.55rem,6vw,2.35rem);line-height:1.17}.subtitle{color:#d1e7d8;font-size:.93rem;margin:0}main{padding:18px 14px 30px}.panel{background:#fff;border:1px solid #dbe4da;border-radius:20px;padding:18px;margin-bottom:14px;box-shadow:0 6px 24px #09281a0b}.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.between{justify-content:space-between}.muted{color:#65756d;font-size:.88rem}.small{font-size:.81rem}.pill{display:inline-block;border-radius:99px;background:#e4f1e7;padding:5px 11px;color:#1b6645;font-weight:700;font-size:.8rem}.pill.rest{background:#fdf0d5;color:#835a13}.pill.done{background:#d5f0de;color:#136039}h2{font-size:1.17rem;margin:0 0 12px}h3{font-size:1rem;margin:12px 0 6px}.chooser{display:flex;gap:8px;margin:14px 0}.chooser button{flex:1;padding:13px 6px;border:1px solid #afc7b7;background:#f6faf7;border-radius:12px;color:#1f5741;font-weight:700}.chooser button.selected{color:#fff;background:#186845;border-color:#186845}.countdown{text-align:center;padding:14px 4px 18px}.phase{font-size:1.35rem;font-weight:800;min-height:2em;margin:4px 0}.cue{min-height:3em;max-width:520px;margin:9px auto;color:#476457;font-size:.94rem}.clock{font-size:clamp(5rem,20vw,8.4rem);line-height:1;letter-spacing:-.075em;font-variant-numeric:tabular-nums;font-weight:800;margin:12px 0;color:#143a2d}.rep{font-weight:750;font-size:1.23rem;margin:9px 0}.sub{font-size:.92rem;color:#557363}.track{height:11px;border-radius:999px;background:#e0ece2;overflow:hidden;margin:15px 0 5px}.fill{height:100%;width:0;background:#219267;transition:width .2s}.buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.btn{border:0;border-radius:13px;font-weight:750;padding:15px 10px;background:#e5efe8;color:#1c553b;min-height:52px}.btn.primary{background:#126b47;color:#fff}.btn.dark{background:#143a2d;color:#fff}.btn:disabled{opacity:.45;cursor:not-allowed}.opts{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:13px 0}.switch{display:flex;align-items:center;gap:7px;font-size:.91rem;cursor:pointer}.switch input{height:19px;width:19px;accent-color:#16764d}.plan{list-style:none;margin:0;padding:0}.plan li{border-top:1px solid #e3eae3;padding:12px 0}.plan li:first-child{border-top:0}.plan strong{display:block;margin-bottom:3px}.notice{border-left:4px solid #b99c57;background:#fff8ea;padding:12px;border-radius:7px;font-size:.86rem;line-height:1.7}.status{text-align:center;min-height:1.5em;color:#466b58;font-size:.87rem}footer{font-size:.76rem;color:#667970;padding:0 16px 28px}select{border:1px solid #afc7b7;border-radius:9px;padding:8px;color:#153f30;background:#fff}button:active{transform:translateY(1px)}
-@media(min-width:550px){.buttons{grid-template-columns:2fr 1fr 1fr 1fr}.clock{margin:15px 0}}
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0a1520;color:#edf5fc;font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',sans-serif}#ttstrength{--bg:#101f2e;--line:#294455;--mint:#6de3ce;--mute:#a9bac9;max-width:800px;margin:auto;padding:15px 12px 35px;font-variant-numeric:tabular-nums}#ttstrength *{box-sizing:border-box}#ttstrength header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}#ttstrength .brand small{display:block;font-size:10px;color:#6de3ce;letter-spacing:.1em}#ttstrength .brand b{font-size:22px;letter-spacing:-.045em}#ttstrength .ver{font-size:11px;padding:5px 9px;background:#21394b;border-radius:99px;color:#bcd0e2}#ttstrength .engine{font-size:11px;color:#ffd397;padding:8px 12px;border:1px solid #71502b;border-radius:9px;margin-bottom:13px;background:#281e17}#ttstrength .engine.ok{color:#a8efdb;background:#11362f;border-color:#356d62}#ttstrength .panel{border:1px solid var(--line);background:linear-gradient(145deg,#152a3c,#101c2b);border-radius:18px;padding:15px;margin-bottom:11px}#ttstrength .line{display:flex;align-items:center;justify-content:space-between;gap:8px}#ttstrength .muted{color:var(--mute);font-size:12px}#ttstrength .heading{font-weight:850;font-size:25px;line-height:1.25;margin:8px 0}#ttstrength .chip{background:#14433e;color:#8ff0da;border:1px solid #2d7368;border-radius:999px;font-size:11px;font-weight:700;padding:4px 9px}#ttstrength .fig{min-height:155px;display:flex;align-items:center;justify-content:center;background:#0b1b2a;border:1px solid #2b4559;border-radius:13px;margin:12px 0 9px;overflow:hidden}#ttstrength .fig svg{display:block;width:100%;height:auto;max-height:205px}#ttstrength .cue{font-size:13px;color:#cfe1ed;line-height:1.7;min-height:38px}#ttstrength .timer{text-align:center}#ttstrength .phase{font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--mint)}#ttstrength .count{font-size:88px;line-height:1.15;font-weight:900;letter-spacing:-.08em;min-height:104px}#ttstrength .target{font-size:14px;color:#c0ceda}#ttstrength .micro{font-size:12px;color:#a9bac9;margin:7px 0 14px;min-height:19px}#ttstrength .progress{height:8px;background:#264053;border-radius:999px;margin:14px 0;overflow:hidden}#ttstrength .progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,#40adca,#6de3ce);transition:width .1s}#ttstrength .buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}#ttstrength button{appearance:none;-webkit-appearance:none;border:0;border-radius:12px;min-height:52px;padding:11px 8px;font-size:15px;font-weight:800;color:#e5f4fb;background:#2e475a;touch-action:manipulation}#ttstrength button.primary{background:#6de3ce;color:#062e32}#ttstrength button.secondary{background:#23374d;border:1px solid #4e7183}#ttstrength button.full{grid-column:1/-1}#ttstrength button[hidden]{display:none!important}#ttstrength .microbutton{font-size:13px;min-height:42px}#ttstrength .statusbar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}#ttstrength .statusbar>div{border:1px solid #2f4659;background:#112130;border-radius:11px;padding:9px;text-align:center}#ttstrength .statusbar strong{display:block;font-size:19px}#ttstrength .statusbar small{font-size:10px;color:#9bb5c6}#ttstrength .inputs{display:grid;grid-template-columns:1fr 65px 73px;gap:8px;align-items:center;font-size:12px;margin:9px 0}#ttstrength .inputs input{width:100%;font-size:15px;color:#eef9ff;text-align:center;border:1px solid #3d6279;background:#091b2a;border-radius:9px;padding:10px 3px}#ttstrength .inputs input:disabled{opacity:.55}#ttstrength .inputs label{line-height:1.4}#ttstrength .inputs .muted{font-size:10px;text-align:center}#ttstrength .settings{margin-top:12px}#ttstrength details>summary{font-weight:700;cursor:pointer;padding:4px 0;list-style:none}#ttstrength details>summary::-webkit-details-marker{display:none}#ttstrength details>summary:before{content:"⚙ ";color:#6de3ce}#ttstrength .small{font-size:11px;line-height:1.6;color:#a6bdcb}#ttstrength .row{display:flex;align-items:center;gap:8px}#ttstrength input[type=checkbox]{width:17px;height:17px;accent-color:#6de3ce}#ttstrength button:focus-visible,#ttstrength input:focus-visible{outline:2px solid #a2fff1;outline-offset:2px}#ttstrength .onlyWide{display:none}@media(min-width:700px){#ttstrength .workarea{display:grid;grid-template-columns:1fr 1fr;gap:10px}#ttstrength .workarea>.panel{min-height:425px}#ttstrength .onlyWide{display:block}}@media(max-width:360px){#ttstrength .heading{font-size:22px}#ttstrength .count{font-size:74px}}
+@media(max-width:699px){
+#ttstrength{padding:9px 10px 24px}
+#ttstrength header{margin-bottom:7px}
+#ttstrength .brand small{font-size:9px}
+#ttstrength .brand b{font-size:19px}
+#ttstrength .engine{font-size:10px;padding:6px 9px;margin-bottom:8px}
+#ttstrength .panel{padding:11px;margin-bottom:8px;border-radius:14px}
+#ttstrength .heading{font-size:21px;margin:5px 0 2px}
+#ttstrength .fig{min-height:104px;max-height:112px;margin:7px 0 5px}
+#ttstrength .fig svg{height:104px;width:auto}
+#ttstrength .cue{font-size:11px;line-height:1.45;min-height:31px}
+#ttstrength .count{font-size:67px;line-height:1;min-height:74px}
+#ttstrength .progress{margin:9px 0}
+#ttstrength .micro{margin:5px 0 9px;min-height:18px}
+#ttstrength button{min-height:45px}
+#ttstrength .statusbar{margin-top:8px}
+#ttstrength .statusbar>div{padding:7px}
+#ttstrength .statusbar strong{font-size:17px}
+#ttstrength .row[style]{margin-top:8px!important}
+}
 </style>
-</head>
-<body>
-<header><div><div class="kicker">TRAIL TALK JP / LIVE COACH</div><h1>Strength Coach</h1><p class="subtitle">スタートを押したら、あとはカウントに合わせて動くだけ。</p></div></header>
-<main>
-<section class="panel">
-<div class="row between"><strong>今日の補強</strong><span class="pill" id="day-indicator">ランOFFの日にも対応</span></div>
-<div class="chooser" role="group" aria-label="補強メニュー"><button id="session-a" type="button" class="selected">補強①（月曜）</button><button id="session-b" type="button">補強②（金曜）</button></div>
-<p class="muted" style="margin:4px 0">現時点の両メニューは、西尾先生の3種目を共通して実施します。回数・テンポはTrail Talk JPの暫定目安です。</p>
-<div class="opts"><label class="switch"><input id="voice" type="checkbox" checked>音声ガイド</label><label class="switch"><input id="beep" type="checkbox" checked>カウント音</label><label class="switch">準備・休憩 <select id="rest-mode"><option value="normal">標準</option><option value="short">短め</option></select></label></div>
-</section>
-<section class="panel" aria-label="補強実行タイマー">
-<div class="row between"><span id="phase-badge" class="pill">準備OK</span><span id="stage-index" class="muted">3種目 / 各2セット</span></div>
-<div class="countdown" aria-live="off">
-<div class="phase" id="phase-name">スタートの準備ができました</div>
-<div class="clock" id="clock" role="timer" aria-label="残り時間">00:00</div>
-<div id="rep" class="rep">カウントダウン実行支援</div>
-<div id="cue" class="cue">種目・左右・回数を自動で案内します。各動作は無理のない範囲で行ってください。</div>
-<div class="sub" id="next">開始ボタンを押すと5秒の準備から始まります。</div>
-<div class="track"><div class="fill" id="fill"></div></div>
-<p class="muted small" id="total-progress">進捗 0%</p>
+</head><body>
+<div id="ttstrength">
+<header><div class="brand"><small>TRAIL TALK JP / PERFORMANCE LAB</small><b>STRENGTH COACH.</b></div><span class="ver">v1.2 · Webアプリ</span></header>
+<div class="engine" id="tt-engine" aria-live="polite">⚠️ JavaScript未起動。この画面でボタンが動かない場合、HTMLプレビューではなくアプリ内の実行画面・SafariのWebサイトで開いてください。</div>
+<div class="workarea">
+<section class="panel"><div class="line"><span class="chip" id="tt-chip">FOOT CONTROL</span><span class="muted" id="tt-subset">セット 1/2</span></div><div class="heading" id="tt-title">親指カーフレイズ</div><div class="muted" id="tt-side">左脚</div><div class="fig" id="tt-figure"></div><div class="cue" id="tt-cue"></div></section>
+<section class="panel timer"><div class="phase" id="tt-phase">READY</div><div class="count" id="tt-count">0</div><div class="target" id="tt-target">/ 10回</div><div class="progress"><span id="tt-progress"></span></div><div class="micro" id="tt-info">開始ボタンを押すと3秒後にカウント開始</div><div class="buttons"><button class="primary full" id="tt-start" type="button">▶ トレーニング開始</button><button id="tt-pause" type="button" hidden>一時停止</button><button class="secondary" id="tt-next" type="button" hidden>動作を終了・次へ</button><button class="primary full" id="tt-skip" type="button" hidden>休憩をスキップ</button><button class="primary full" id="tt-resume" type="button" hidden>▶ 再開</button><button class="primary full" id="tt-restart" type="button" hidden>もう一度</button></div><div class="statusbar"><div><strong id="tt-sets">0 / 6</strong><small>終了セット</small></div><div><strong id="tt-time">00:00</strong><small>経過時間</small></div><div><strong id="tt-order">1 / 3</strong><small>種目</small></div></div><div class="row" style="margin-top:13px;justify-content:space-between"><label class="small row"><input type="checkbox" id="tt-sound" checked>カウント音</label><button class="microbutton secondary" id="tt-reset" type="button">最初から</button></div></section>
 </div>
-<div class="buttons">
-<button id="start" class="btn primary">▶ スタート</button>
-<button id="pause" class="btn" disabled>一時停止</button>
-<button id="skip" class="btn" disabled>次へ進む</button>
-<button id="reset" class="btn">最初から</button>
+<section class="panel settings"><details><summary>回数・テンポ・休憩を変更</summary><div class="inputs"><b>種目</b><span class="muted">回数</span><span class="muted">秒/回</span></div><div class="inputs"><label for="tt-rep0">親指カーフレイズ（左右）</label><input type="number" id="tt-rep0" min="2" max="30" step="1" value="10"><input type="number" id="tt-pace0" min="2" max="12" step=".5" value="3"></div><div class="inputs"><label for="tt-rep1">棒持ちランジ（左右）</label><input type="number" id="tt-rep1" min="2" max="20" step="1" value="5"><input type="number" id="tt-pace1" min="2" max="12" step=".5" value="5"></div><div class="inputs"><label for="tt-rep2">膝上げクランチ</label><input type="number" id="tt-rep2" min="2" max="30" step="1" value="8"><input type="number" id="tt-pace2" min="2" max="12" step=".5" value="4"></div><div class="inputs"><label for="tt-rest">セット間の休憩（秒）</label><input type="number" id="tt-rest" min="5" max="180" step="5" value="30"><span class="small">自動進行</span></div><p class="small">初期設定はコーチの暫定案であり、専門家の指定回数ではありません。設定は開始前に変更できます。</p></details></section>
+<p class="small">左右を終えると1セットとして休憩に入ります。ランジは動作の安定を優先し、ブレや痛みが強い場合は一時停止してください。画面を閉じたり別アプリへ移ると自動で一時停止します。動画認識ではなく時間によるカウントです。回数・テンポ・休憩時間の設定は、この端末に保存します。</p>
 </div>
-<p class="status" id="status" role="status" aria-live="polite"></p>
-</section>
-<section class="panel"><h2>自動ガイドする内容</h2><ol class="plan">
-<li><strong>① 母趾側荷重カーフレイズ</strong><span class="muted">右10回・左10回 × 2セット / 1回3秒 / セット間30秒</span><div class="small">親指側に荷重を残し、ゆっくり上下動。左右の順序は調整可能。</div></li>
-<li><strong>② 棒持ちフォワードランジ</strong><span class="muted">右5回・左5回 × 2セット / 1回5秒 / セット間30秒</span><div class="small">両腕を前に伸ばして棒を持つ。右脚の支持の安定性を優先。</div></li>
-<li><strong>③ 膝引き寄せクランチ</strong><span class="muted">8回 × 2セット / 1回4秒 / セット間30秒</span><div class="small">膝を引き寄せ、骨盤を後傾。勢いではなく制御して行う。</div></li>
-</ol><p class="notice"><strong>重要：</strong>これは反復回数・テンポを数えるガイドで、動作を無理に速めたり完遂を強制したりするものではありません。痛み・詰まり・かばう動作があれば一時停止または終了。月曜は日曜ロングの翌日なので軽い負荷に留めます。</p></section>
-<section class="panel"><h2>iPhoneでの使い方</h2><p>① 音声・カウント音を選択 → ② <strong>スタート</strong> → ③ 画面の「右／左」「セット」「回数」に合わせて実施。必要なら一時停止・次へ進むを使用。</p><p class="muted">画面を閉じたり別アプリへ切り替えると、iOSでは音声・タイマーの継続に制限があります。使用中は画面を開いてください。対応環境では画面スリープ抑制を試みます。実施記録は保存しません。</p></section>
-</main><footer>Trail Talk JP Strength Coach v0.2 • 実行支援専用 / 個人ログ収集なし</footer>
 <script>
-"use strict";
-const $=id=>document.getElementById(id);
-const exercises=[
-{name:"母趾側荷重カーフレイズ",side:["右脚","左脚"],reps:10,sets:2,tempo:3,cue:"親指側へ荷重。急がずゆっくり上下します。"},
-{name:"棒持ちフォワードランジ",side:["右脚","左脚"],reps:5,sets:2,tempo:5,cue:"両腕を伸ばして棒を持ち、右脚のふらつきに注意。"},
-{name:"膝引き寄せクランチ",side:["両脚"],reps:8,sets:2,tempo:4,cue:"膝を引き寄せ、骨盤を後傾。勢いで反復しません。"}
-];
-let steps=[],index=0,remain=0,status="idle",timer=null,target=0,selected="補強①",audio=null,lock=null,lastTick=-1;
-function mmss(n){n=Math.max(0,Math.ceil(n));return String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0")}
-function build(){
-const short=$("rest-mode").value==="short",rest=short?15:30,between=short?15:25;let a=[{kind:"prep",name:"スタート準備",duration:5,tip:"姿勢を整えます。開始まで5秒。"}];
-exercises.forEach((e,ei)=>{for(let set=1;set<=e.sets;set++){e.side.forEach((side,si)=>{a.push({kind:"work",duration:e.reps*e.tempo,name:e.name,side,set,sets:e.sets,reps:e.reps,tempo:e.tempo,tip:e.cue,ei});if(si<e.side.length-1)a.push({kind:"transition",duration:5,name:"左右の切替",tip:"次は"+e.side[si+1]});});
-if(set<e.sets)a.push({kind:"rest",duration:rest,name:"セット間の休憩",tip:"無理せず呼吸を整えましょう。"});}
-if(ei<exercises.length-1)a.push({kind:"rest",duration:between,name:"次の種目まで休憩",tip:"次の動作の準備をしましょう。"});});
-a.push({kind:"finish",name:"おつかれさまでした！",duration:0,tip:"補強は完了です。筋疲労や違和感が残る場合は回復を優先してください。"});return a;
+(function(){'use strict';
+var root=document.getElementById('ttstrength');if(!root)return;
+var $=function(id){return root.querySelector('#'+id)};
+var exercises=[
+ {name:'親指カーフレイズ',chip:'FOOT CONTROL',cue:'母趾球側に芯を作り、踵を上げ下げ。小指側への荷重逃避を抑え、足指を強く握り込まない。',sides:['左脚','右脚'],rep:10,pace:3},
+ {name:'棒持ちランジ',chip:'SINGLE-LEG STABILITY',cue:'棒を肩幅で持ち、腕を伸ばす。棒の水平・膝・骨盤の安定を確認。動作が崩れたら回数を優先せず一時停止。',sides:['左脚','右脚'],rep:5,pace:5},
+ {name:'膝上げクランチ',chip:'CORE / HIP',cue:'膝を引き寄せ、腹部を丸めて骨盤を少し浮かす。反動を使わずゆっくり戻す。',sides:['両脚'],rep:8,pace:4}
+ ];
+var figs=[
+ '<svg viewBox="0 0 460 180" xmlns="http://www.w3.org/2000/svg"><rect width="460" height="180" rx="12" fill="#0b1b2a"/><path d="M35 143H425" stroke="#416279" stroke-width="3"/><g fill="none" stroke="#d9edf4" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"><path d="M94 17L111 78L102 114L82 135Q81 145 96 145H166"/><path d="M287 17L304 71L292 105Q281 114 283 123L309 137L354 142"/></g><path d="M161 145H186M355 142H380" stroke="#6de3ce" stroke-width="7" stroke-linecap="round"/><path d="M388 126V83m-8 10 8-10 8 10" stroke="#f3c777" stroke-width="4" fill="none"/><g fill="#adcaD9" font-size="12" text-anchor="middle"><text x="126" y="165">START</text><text x="330" y="165">HEEL UP</text></g></svg>',
+ '<svg viewBox="0 0 460 180" xmlns="http://www.w3.org/2000/svg"><rect width="460" height="180" rx="12" fill="#0b1b2a"/><path d="M30 147H430" stroke="#416279" stroke-width="3"/><g stroke="#d9edf4" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="111" cy="40" r="14"/><path d="M111 56V98L80 139M111 98L134 140M110 72L66 80M111 72L157 80"/><circle cx="335" cy="40" r="14"/><path d="M335 55L329 97L286 117L262 142M329 97L365 125L386 142M331 71L291 83M333 71L372 83"/></g><path d="M51 80H169M277 83H389" stroke="#f3c777" stroke-width="5" stroke-linecap="round"/><g fill="#adcaD9" font-size="12" text-anchor="middle"><text x="111" y="169">START</text><text x="333" y="169">LUNGE</text></g></svg>',
+ '<svg viewBox="0 0 460 180" xmlns="http://www.w3.org/2000/svg"><rect width="460" height="180" rx="12" fill="#0b1b2a"/><path d="M30 146H430" stroke="#416279" stroke-width="3"/><g fill="none" stroke="#d9edf4" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"><circle cx="72" cy="122" r="14"/><path d="M87 126L155 131L198 105L236 117M162 132L208 145"/><circle cx="284" cy="119" r="14"/><path d="M300 124L355 121L384 91L369 64M353 122L405 144"/></g><path d="M403 96Q414 67 389 50" stroke="#f3c777" stroke-width="3" stroke-dasharray="5 5" fill="none"/><g fill="#adcaD9" font-size="12" text-anchor="middle"><text x="140" y="169">START</text><text x="344" y="169">CRUNCH</text></g></svg>'
+ ];
+var state={wake:null,mode:'idle',resumeMode:'work',index:0,elapsed:0,total:0,last:0,doneSets:0,steps:[],rest:30,audio:null,shown:-1};
+function clamp(v,min,max){v=Number(v);return isFinite(v)?Math.max(min,Math.min(max,v)):min}
+function makeSteps(){var steps=[];exercises.forEach(function(e,i){for(var set=0;set<2;set++)e.sides.forEach(function(side,j){steps.push({ex:i,set:set,side:side,reps:e.rep,pace:e.pace,ends:j===e.sides.length-1})})});return steps}
+function action(){return state.steps[Math.min(state.index,state.steps.length-1)]}
+function fmt(t){var s=Math.floor(Math.max(0,t));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function audioInit(){if(!$('tt-sound').checked)return;try{var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;if(!state.audio)state.audio=new AC();if(state.audio.state==='suspended')state.audio.resume()}catch(err){}}
+function beep(freq){if(!$('tt-sound').checked||!state.audio)return;try{var a=state.audio,t=a.currentTime,o=a.createOscillator(),g=a.createGain();o.frequency.value=freq;o.type='sine';g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.07,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+.08);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+.09)}catch(err){}}
+function requestWake(){try{if(navigator.wakeLock&&navigator.wakeLock.request){navigator.wakeLock.request('screen').then(function(lock){state.wake=lock;lock.addEventListener('release',function(){state.wake=null})}).catch(function(){})}}catch(err){}}
+function releaseWake(){if(state.wake){try{state.wake.release()}catch(err){}state.wake=null}}
+function readPrefs(){try{var p=JSON.parse(localStorage.getItem('ttstrength.prefs.v1')||'null');if(p){['tt-rep0','tt-pace0','tt-rep1','tt-pace1','tt-rep2','tt-pace2','tt-rest'].forEach(function(id){if(typeof p[id]==='number')$(id).value=String(p[id])});if(typeof p['tt-sound']==='boolean')$('tt-sound').checked=p['tt-sound']}}catch(err){}}
+function savePrefs(){try{var p={};['tt-rep0','tt-pace0','tt-rep1','tt-pace1','tt-rep2','tt-pace2','tt-rest'].forEach(function(id){p[id]=Number($(id).value)});p['tt-sound']=$('tt-sound').checked;localStorage.setItem('ttstrength.prefs.v1',JSON.stringify(p))}catch(err){}}
+function setMode(m){state.mode=m;state.elapsed=0;state.last=Date.now();paint();}
+function reset(){releaseWake();exercises.forEach(function(e,i){e.rep=Math.round(clamp($('tt-rep'+i).value,2,i===1?20:30));e.pace=clamp($('tt-pace'+i).value,2,12)});state.rest=clamp($('tt-rest').value,5,180);state.steps=makeSteps();state.mode='idle';state.index=0;state.elapsed=0;state.total=0;state.doneSets=0;state.shown=-1;paint();savePrefs()}
+function finishedStep(){var a=action();if(a.ends)state.doneSets++;if(state.index===state.steps.length-1){state.mode='done';state.elapsed=0;releaseWake();beep(880);paint();return}state.index++;setMode(a.ends?'rest':'ready');beep(a.ends?740:610)}
+function start(){audioInit();requestWake();setMode('ready');beep(660)}
+function pause(){if(['ready','work','rest'].indexOf(state.mode)<0)return;state.resumeMode=state.mode;state.mode='paused';releaseWake();paint()}
+function resume(){if(state.mode!=='paused')return;requestWake();state.mode=state.resumeMode;state.last=Date.now();paint()}
+function renderControls(){var v=state.mode;['tt-start','tt-pause','tt-next','tt-skip','tt-resume','tt-restart'].forEach(function(id){$(id).hidden=true});if(v==='idle')$('tt-start').hidden=false;else if(v==='done')$('tt-restart').hidden=false;else if(v==='paused')$('tt-resume').hidden=false;else if(v==='rest'){$('tt-pause').hidden=false;$('tt-skip').hidden=false}else{$('tt-pause').hidden=false;$('tt-next').hidden=false}['tt-rep0','tt-rep1','tt-rep2','tt-pace0','tt-pace1','tt-pace2','tt-rest'].forEach(function(id){$(id).disabled=(v!=='idle'&&v!=='done')})}
+function paint(){var a=action(),e=exercises[a.ex],mode=state.mode;
+ if(state.shown!==a.ex){$('tt-figure').innerHTML=figs[a.ex];state.shown=a.ex}
+ $('tt-title').textContent=mode==='done'?'完了！':e.name;
+ $('tt-chip').textContent=mode==='done'?'FINISH':e.chip;
+ $('tt-subset').textContent=mode==='done'?'全6セット完了':'セット '+(a.set+1)+'/2';
+ $('tt-side').textContent=mode==='done'?'お疲れさまでした':a.side;
+ $('tt-cue').textContent=mode==='done'?'フォームの安定性と違和感の有無を振り返りましょう。':e.cue;
+ var labels={idle:'READY',ready:'GET READY',work:'AUTO COUNTING',rest:'REST',paused:'PAUSED',done:'COMPLETED'};
+ $('tt-phase').textContent=labels[mode];
+ var n=0,lim=1,sub='';
+ if(mode==='done'){n='✓';sub='すべて終了';lim=1}
+ else if(mode==='rest'||mode==='paused'&&state.resumeMode==='rest'){n=Math.max(0,Math.ceil(state.rest-state.elapsed));sub='秒';lim=state.rest}
+ else if(mode==='ready'||mode==='paused'&&state.resumeMode==='ready'){n=Math.max(0,Math.ceil(3-state.elapsed));sub='秒後に開始';lim=3}
+ else {n=Math.min(a.reps,Math.floor(state.elapsed/a.pace));sub='/ '+a.reps+' 回';lim=a.pace*a.reps}
+ $('tt-count').textContent=String(n);$('tt-target').textContent=sub;
+ var fract=mode==='done'?1:mode==='work'||mode==='paused'&&state.resumeMode==='work'?state.elapsed/lim:state.elapsed/lim;
+ $('tt-progress').style.width=Math.min(100,Math.max(0,100*fract))+'%';
+ var note={idle:'開始ボタンを押すと3秒後にカウント開始',ready:'姿勢を整えてください',work:'設定テンポで自動カウント中',rest:'休憩終了で自動的に次へ。スキップ可能',paused:'一時停止中。再開で続きから',done:'今日の補強は終了です'};
+ $('tt-info').textContent=note[mode];$('tt-sets').textContent=state.doneSets+' / 6';$('tt-time').textContent=fmt(state.total);$('tt-order').textContent=Math.min(3,a.ex+1)+' / 3';renderControls();}
+function tick(){if(['ready','work','rest'].indexOf(state.mode)<0)return;var now=Date.now(),dt=(now-state.last)/1000;state.last=now;if(dt<0||dt>2.5){pause();return}var before=state.mode==='work'?Math.floor(state.elapsed/action().pace):0;state.elapsed+=dt;state.total+=dt;if(state.mode==='ready'&&state.elapsed>=3){setMode('work');beep(700);return}if(state.mode==='rest'&&state.elapsed>=state.rest){setMode('ready');beep(750);return}if(state.mode==='work'){var a=action(),count=Math.min(a.reps,Math.floor(state.elapsed/a.pace));if(count>before)beep(count===a.reps?880:530);if(count>=a.reps){finishedStep();return}}paint()}
+$('tt-start').addEventListener('click',start);
+$('tt-pause').addEventListener('click',pause);
+$('tt-next').addEventListener('click',finishedStep);
+$('tt-resume').addEventListener('click',function(){audioInit();resume()});
+$('tt-skip').addEventListener('click',function(){if(state.mode==='rest')setMode('ready')});
+$('tt-reset').addEventListener('click',reset);$('tt-restart').addEventListener('click',reset);
+['tt-rep0','tt-rep1','tt-rep2','tt-pace0','tt-pace1','tt-pace2','tt-rest'].forEach(function(id){$(id).addEventListener('change',function(){if(state.mode==='idle'||state.mode==='done')reset()})});
+$('tt-sound').addEventListener('change',savePrefs);
+document.addEventListener('visibilitychange',function(){if(document.hidden)pause()});
+readPrefs();reset();$('tt-engine').textContent='✓ タイマー起動済み — 開始ボタンを押すと動きます';$('tt-engine').classList.add('ok');
+setInterval(tick,100);
+if('serviceWorker' in navigator&&location.protocol==='https:'){
+  navigator.serviceWorker.register('./sw.js',{scope:'./'}).catch(function(){});
 }
-function initAudio(){try{if(!audio){const AC=window.AudioContext||window.webkitAudioContext;if(AC)audio=new AC()}if(audio?.state==="suspended")audio.resume()}catch{}}
-function tone(hz=720,dur=.08){if(!$("beep").checked||!audio)return;try{const osc=audio.createOscillator(),gain=audio.createGain();osc.type="sine";osc.frequency.value=hz;gain.gain.setValueAtTime(.0001,audio.currentTime);gain.gain.exponentialRampToValueAtTime(.08,audio.currentTime+.01);gain.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+dur);osc.connect(gain);gain.connect(audio.destination);osc.start();osc.stop(audio.currentTime+dur+.02)}catch{}}
-function speak(words){if(!$("voice").checked||!("speechSynthesis"in window))return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(words);u.lang="ja-JP";u.rate=1.15;speechSynthesis.speak(u)}catch{}}
-async function wake(){if("wakeLock"in navigator){try{lock=await navigator.wakeLock.request("screen")}catch{}}}
-function unwake(){try{lock?.release()}catch{}lock=null}
-function announce(){
-let s=steps[index];if(!s)return;
-if(s.kind==="work")speak(s.name+"、"+s.side+"、"+s.set+"セット目、"+s.reps+"回");else if(s.kind==="finish")speak("すべて完了です。おつかれさまでした");else if(s.kind==="prep")speak("5秒後にスタートします");else if(s.kind==="rest")speak("休憩です");else if(s.kind==="transition")speak(s.tip);
-tone(s.kind==="finish"?930:660,.12)
-}
-function controls(){
-$("start").disabled=status==="running"||status==="done";$("start").textContent=status==="paused"?"▶ 再開":"▶ スタート";
-$("pause").disabled=status!=="running";$("skip").disabled=status!=="running"&&status!=="paused";
-$("session-a").disabled=status==="running"||status==="paused";$("session-b").disabled=status==="running"||status==="paused";$("rest-mode").disabled=status==="running"||status==="paused";
-}
-function render(){
-const s=steps[index];if(!s)return;
-const full=steps.reduce((t,x)=>t+x.duration,0);
-const passed=steps.slice(0,index).reduce((t,x)=>t+x.duration,0)+Math.max(0,s.duration-remain);
-const progress=full?Math.min(100,passed/full*100):0;
-$("fill").style.width=progress+"%";$("total-progress").textContent="進捗 "+Math.floor(progress)+"%";
-$("phase-badge").textContent=s.kind==="work"?"動作中":s.kind==="rest"?"休憩":s.kind==="finish"?"完了":s.kind==="transition"?"左右切替":"準備";
-$("phase-badge").className="pill"+(s.kind==="rest"?" rest":s.kind==="finish"?" done":"");
-$("phase-name").textContent=s.name;$("clock").textContent=mmss(remain);$("cue").textContent=s.tip;
-if(s.kind==="work"){
-const current=Math.min(s.reps,Math.floor((s.duration-Math.max(0,remain))/s.tempo)+1);
-$("rep").textContent=s.side+" ・ "+s.set+"/"+s.sets+"セット ・ "+current+"/"+s.reps+"回";
-$("stage-index").textContent="種目 "+(s.ei+1)+"/3";
-}else {$("rep").textContent=s.kind==="finish"?"全種目終了":"次の動作に備えましょう";$("stage-index").textContent=selected;}
-const next=steps[index+1];$("next").textContent=next?"次： "+next.name+(next.side?"／"+next.side+"・"+next.set+"セット":""):"最後まで完了";
-controls();
-}
-function move(){
-if(index<steps.length-1){index++;remain=steps[index].duration;lastTick=-1;announce();if(steps[index].kind==="finish"){status="done";clearInterval(timer);timer=null;unwake();$("status").textContent="完了！ 記録保存は行いません。";}render();}
-}
-function advance(elapsed){
-let left=elapsed,guard=0;
-while(left>0&&status==="running"&&guard++<1000){
- if(left<remain){remain-=left;left=0}else{left-=remain;remain=0;move();}
-}
-}
-function frame(){
-if(status!=="running")return;const now=performance.now(),elapsed=(now-target)/1000;
-if(elapsed<=0)return;target=now;const oldStep=steps[index],oldRemain=remain;advance(elapsed);
-const s=steps[index];if(s===oldStep&&s?.kind==="work"&&s.tempo>0){const oldR=Math.floor((s.duration-oldRemain)/s.tempo),newR=Math.floor((s.duration-remain)/s.tempo);if(newR>oldR)tone(820,.06);}
-render();
-}
-function stopTimer(){if(timer)clearInterval(timer);timer=null;unwake();try{speechSynthesis.cancel()}catch{}}
-function setInitial(){stopTimer();steps=build();index=0;remain=0;status="idle";$("status").textContent="スタートで自動カウントを開始します。";render();}
-$("start").addEventListener("click",()=>{
-if(status==="done"||status==="running")return;initAudio();
-if(status==="idle"){steps=build();index=0;remain=steps[0].duration;announce();}
-status="running";target=performance.now();timer=setInterval(frame,70);wake();$("status").textContent="実行中。音声を聞きながら画面を見てください。";render();
-});
-$("pause").addEventListener("click",()=>{
-if(status!=="running")return;frame();stopTimer();status="paused";$("status").textContent="一時停止しました。再開できます。";render();
-});
-$("skip").addEventListener("click",()=>{if(status!=="running"&&status!=="paused")return;move();if(status==="running")target=performance.now();render()});
-$("reset").addEventListener("click",()=>{setInitial()});
-function selectSession(which){if(status==="running"||status==="paused")return;selected=which;$("session-a").classList.toggle("selected",which==="補強①");$("session-b").classList.toggle("selected",which==="補強②");setInitial();}
-$("session-a").addEventListener("click",()=>selectSession("補強①"));$("session-b").addEventListener("click",()=>selectSession("補強②"));
-$("rest-mode").addEventListener("change",setInitial);
-const weekday=new Date().getDay();$("day-indicator").textContent=weekday===1?"月曜：ランOFF＋補強":weekday===5?"金曜：補強②":"フォーム優先・無理なく";
-if(weekday===5)selectSession("補強②");else setInitial();
-document.addEventListener("visibilitychange",()=>{if(document.hidden&&status==="running"){$("status").textContent="画面が非表示です。音やスリープ抑制はiOSで制限される場合があります。"}});
-</script>
-</body></html>
+})();
+</script></body></html>
