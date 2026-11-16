@@ -1,7 +1,8 @@
 {
+  "id": "./",
   "name": "Trail Talk JP Strength Coach",
   "short_name": "Strength Coach",
-  "description": "3種目補強の自動カウントタイマー",
+  "description": "親指カーフレイズ、棒持ちランジ、膝上げクランチのハンズフリー補強タイマー",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -10,13 +11,13 @@
   "lang": "ja",
   "icons": [
     {
-      "src": "icons/icon-192.png",
+      "src": "./icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "icons/icon-512.png",
+      "src": "./icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
